@@ -21,7 +21,7 @@ class QuartaController extends Controller
 
         $categories = [];
         foreach($parser->getCategories() as $cat){
-          
+
             $categories[$cat['id']] = [
                 'parentid' => $cat['parentid'] ?? '',
                 'value' => $cat['value']
@@ -45,16 +45,16 @@ class QuartaController extends Controller
      */
 
     public function getCats($cats, $cat_id){
-        
+
         $r = [];
         $r[] = $cats[$cat_id]['value'];
         while ($cats[$cat_id]['parentid']) {
-            
+
             $cat_id = $cats[$cat_id]['parentid'];
             $r[] = $cats[$cat_id]['value'];
         }
 
-        
+
         return array_reverse($r);
     }
 
@@ -74,7 +74,7 @@ class QuartaController extends Controller
         Quarta::truncate();
 
         foreach($parser->getOffers() as $offer) {
-            
+
             $offer_cats = ($this->getCats($cats,$offer['categoryid']));
             Quarta::create([
                 'quarta_id' => $offer['id'],
@@ -89,9 +89,9 @@ class QuartaController extends Controller
                 'picture' => $offer['picture'] ?? '',
                 'name' => $offer['name'],
                 'vendor' => $offer['vendor'],
-    
+
             ]);
-             
+
 
         }
 
@@ -139,6 +139,7 @@ class QuartaController extends Controller
      */
     public function destroy(Quarta $quarta)
     {
-        //
+        Quarta::truncate();
+        return redirect('/quarta');
     }
 }

@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/quarta', [QuartaController::class, 'index'])->name('home');
 Route::get('/quarta/create', [QuartaController::class, 'create']);
 Route::get('/quarta/download', [QuartaController::class, 'store']);
+Route::get('/quarta/destroy', [QuartaController::class, 'destroy']);
